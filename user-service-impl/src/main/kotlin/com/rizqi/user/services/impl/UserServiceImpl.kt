@@ -16,6 +16,11 @@ class UserServiceImpl(@Autowired val repository: UserRepository) : UserService {
         return repository.findById(id).get()
     }
 
+    override fun getDataByAddress(location: String): List<User> {
+        logger.debug(location)
+        return repository.findAll().filter { it.location == location }
+    }
+
     override fun getAllData(): List<User> {
         return repository.findAll()
     }

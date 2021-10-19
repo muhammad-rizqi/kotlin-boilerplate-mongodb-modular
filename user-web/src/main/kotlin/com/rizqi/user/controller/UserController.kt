@@ -25,8 +25,11 @@ fun UserRequest.toUserModel(): User = User(
 class UserController(@Autowired val service: UserService) {
 
     @GetMapping("/", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getAll(): ResponseEntity<ListUserResponse> {
-        return ResponseEntity(ListUserResponse(service.getAllData()), HttpStatus.OK)
+    fun getAll(@RequestParam location: String?): ResponseEntity<ListUserResponse> {
+        if (location == null) {
+            return ResponseEntity(ListUserResponse(service.getAllData()), HttpStatus.OK)
+        }
+        return ResponseEntity(ListUserResponse(service.getDataByAddress(location)), HttpStatus.OK)
     }
 
     @PostMapping("/")

@@ -8,5 +8,5 @@ interface UserService {
   fun getAllData(): List<User>
   fun updateData(id: String, data: User): Pair<User?, Boolean>
   fun deleteData(id: String): Boolean
-
+  fun getDataByAddress(location: String): List<User>
 }
