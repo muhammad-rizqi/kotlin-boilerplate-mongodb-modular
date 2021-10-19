@@ -19,7 +19,7 @@ class UserServiceImpl(@Autowired val repository: UserRepository) : UserService {
     }
 
     override fun getDataByAddress(location: String): List<User> {
-        return repository.findAll(Example.of(User(location = location), ExampleMatcher.matchingAny()))
+        return repository.findAll(Example.of(User(location = location), ExampleMatcher.matchingAny().withIgnoreCase()))
     }
 
     override fun getAllData(): List<User> {
