@@ -5,6 +5,8 @@ import com.rizqi.user.repository.UserRepository
 import com.rizqi.user.services.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Example
+import org.springframework.data.domain.ExampleMatcher
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,8 +19,7 @@ class UserServiceImpl(@Autowired val repository: UserRepository) : UserService {
     }
 
     override fun getDataByAddress(location: String): List<User> {
-        logger.debug(location)
-        return repository.findAll().filter { it.location == location }
+        return repository.findAll(Example.of(User(location = location), ExampleMatcher.matchingAny()))
     }
 
     override fun getAllData(): List<User> {
